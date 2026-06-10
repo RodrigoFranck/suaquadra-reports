@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report WTD — SuaQuadra</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#F3F4F6;color:#27272A;line-height:1.6;min-height:100vh}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 32px}
+
+/* Header */
+.hdr{background:#000;color:#fff;padding:44px 48px;border-radius:16px;margin-bottom:28px;position:relative}
+.hdr h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.hdr .sub{font-size:14px;color:#A1A1AA;margin-top:6px;font-weight:400}
+.hdr .badge{display:inline-block;background:#FBBF24;color:#000;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;margin-top:14px;text-transform:uppercase;letter-spacing:1px}
+.hdr .logo{position:absolute;top:44px;right:48px;font-size:18px;font-weight:800;color:#FBBF24}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:28px}
+.kpi{background:#fff;border-radius:12px;padding:22px 20px;border:1px solid #E5E7EB}
+.kpi .lb{font-size:10px;color:#71717A;text-transform:uppercase;letter-spacing:0.8px;font-weight:600}
+.kpi .vl{font-size:28px;font-weight:800;margin-top:4px;color:#27272A}
+.kpi .sm{font-size:11px;color:#A1A1AA;margin-top:2px}
+.kpi.accent .vl{color:#FBBF24}
+.kpi.red .vl{color:#dc2626}
+.kpi.green .vl{color:#059669}
+
+/* Charts */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+.chart-card{background:#fff;border-radius:12px;padding:28px;border:1px solid #E5E7EB}
+.chart-card h3{font-size:14px;font-weight:700;margin-bottom:16px;color:#3F3F46}
+.chart-area{height:300px;position:relative}
+
+/* Sections */
+.sec{background:#fff;border-radius:12px;padding:28px;margin-bottom:20px;border:1px solid #E5E7EB}
+.sec-title{font-size:15px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:2px solid #FBBF24}
+.sec-title .dot{width:8px;height:8px;background:#FBBF24;border-radius:2px;display:inline-block}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;background:#FAFAFA;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:#71717A;border-bottom:2px solid #E5E7EB}
+td{padding:10px 12px;border-bottom:1px solid #F3F4F6}
+td.r,th.r{text-align:right}
+tr:hover td{background:#FFFBEB}
+.star{color:#FBBF24;font-weight:700}
+.warn{color:#dc2626;font-size:11px}
+
+/* Funil & Themes */
+.funil-row,.theme-row{display:flex;align-items:center;margin-bottom:10px}
+.funil-label{width:200px;font-size:13px;font-weight:500}
+.funil-bar{flex:1;background:#F3F4F6;height:12px;border-radius:6px;margin:0 14px}
+.funil-fill{height:100%;background:#27272A;border-radius:6px;transition:width 0.6s}
+.funil-val{font-size:15px;font-weight:700;width:36px;text-align:right}
+.theme-label{width:200px;font-size:12px;color:#71717A}
+.theme-bar{flex:1;background:#F3F4F6;height:8px;border-radius:4px;margin:0 14px}
+.theme-fill{height:100%;background:#FBBF24;border-radius:4px;transition:width 0.6s}
+.theme-val{font-size:12px;font-weight:600;width:70px;text-align:right}
+
+/* Sentimento bar */
+.sent-wrap{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:14px 0 10px}
+.sent-wrap .s-pos{background:#FBBF24}.sent-wrap .s-neg{background:#27272A}.sent-wrap .s-neu{background:#E5E7EB}
+.sent-legend{display:flex;gap:24px;font-size:12px;color:#71717A;margin-top:4px}
+.sent-legend .d{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
+
+/* Grid 2 col */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+
+/* Footer */
+.ftr{text-align:center;padding:20px;color:#A1A1AA;font-size:11px;border-top:1px solid #E5E7EB;margin-top:8px}
+
+@media print{
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{padding:16px}
+  .sec,.chart-card,.kpi{break-inside:avoid;box-shadow:none}
+}
+@media(max-width:768px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .charts,.g2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <h1>Report WTD — Visitas e Propostas</h1>
+  <div class="sub">Semana 08/06 a 10/06/2026 — parcial, ate quarta-feira</div>
+  <div class="badge">Week-to-Date</div>
+  <div class="logo">SuaQuadra</div>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="lb">Visitas Realizadas</div><div class="vl">137</div><div class="sm">R$ 1.022.937</div></div>
+  <div class="kpi"><div class="lb">Propostas</div><div class="vl">40</div><div class="sm">R$ 240.218/mes</div></div>
+  <div class="kpi green"><div class="lb">Conversao Lead-Prop</div><div class="vl">22.5%</div><div class="sm">40 prop / 178 leads</div></div>
+  <div class="kpi accent"><div class="lb">Ticket Medio</div><div class="vl">R$ 7.467</div><div class="sm">Prop: R$ 6.005</div></div>
+  <div class="kpi red"><div class="lb">No-Shows</div><div class="vl">41</div><div class="sm">Pipeline: 641</div></div>
+  <div class="kpi"><div class="lb">Follow-up</div><div class="vl">10</div><div class="sm">Oportunidades na mesa</div></div>
+</div>
+
+<div class="charts">
+  <div class="chart-card">
+    <h3>Visitas Realizadas por Dia</h3>
+    <div class="chart-area"><canvas id="c1"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <h3>Previsto vs Realizado</h3>
+    <div class="chart-area"><canvas id="c2"></canvas></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="dot"></span> Previsto vs Realizado</div>
+  <table><thead><tr><th>Dia</th><th>Previstas</th><th>Realizadas</th><th>Efetivacao</th></tr></thead><tbody><tr><td>Seg 08/06</td><td>125</td><td><strong>43</strong></td><td>34.4%</td></tr><tr><td>Ter 09/06</td><td>123</td><td><strong>44</strong></td><td>35.8%</td></tr><tr><td>Qua 10/06</td><td>146</td><td><strong>39</strong></td><td>26.7%</td></tr></tbody></table>
+</div>
+
+<div class="g2">
+  <div class="sec">
+    <div class="sec-title"><span class="dot"></span> Pipeline Futuro</div>
+    <table><thead><tr><th>Dia</th><th>Total</th><th>Agendadas</th><th>Intents</th></tr></thead><tbody><tr><td>Qui 11/06</td><td>143</td><td>30</td><td>113</td></tr><tr><td>Sex 12/06</td><td>77</td><td>16</td><td>61</td></tr><tr><td>Sab 13/06</td><td>27</td><td>6</td><td>21</td></tr></tbody></table>
+  </div>
+  <div class="sec">
+    <div class="sec-title"><span class="dot"></span> Top No-Shows</div>
+    <table><thead><tr><th>Consultor</th><th>Qtd</th></tr></thead><tbody><tr><td>gabrielrhadar@gmail.com</td><td><strong>11</strong></td></tr><tr><td>Nicholas Takamoto</td><td><strong>5</strong></td></tr><tr><td>talitasouzavinhos@gmail.com</td><td><strong>4</strong></td></tr><tr><td>Frank Patrício Constantino</td><td><strong>3</strong></td></tr><tr><td>Marcel Santos</td><td><strong>2</strong></td></tr><tr><td>Marce Paganeli</td><td><strong>2</strong></td></tr><tr><td>Victor Bedim</td><td><strong>2</strong></td></tr><tr><td>Eliane Honorio</td><td><strong>2</strong></td></tr><tr><td>Matheus Perez</td><td><strong>1</strong></td></tr><tr><td>Diego Pilat</td><td><strong>1</strong></td></tr><tr><td>Marcos Abrego Erbert</td><td><strong>1</strong></td></tr><tr><td>Silvana aparecida mariano</td><td><strong>1</strong></td></tr></tbody></table>
+  </div>
+</div>
+
+<div class="charts">
+  <div class="chart-card">
+    <h3>Funil de Propostas</h3>
+    <div style="padding:16px 0"><div class=funil-row><span class=funil-label>Proposta Enviada</span><div class=funil-bar><div class=funil-fill style="width:45%"></div></div><span class=funil-val>9</span></div><div class=funil-row><span class=funil-label>Proposta em Negociacao</span><div class=funil-bar><div class=funil-fill style="width:100%"></div></div><span class=funil-val>20</span></div><div class=funil-row><span class=funil-label>Proposta Aceita</span><div class=funil-bar><div class=funil-fill style="width:30%"></div></div><span class=funil-val>6</span></div><div class=funil-row><span class=funil-label>Documentacao Enviada</span><div class=funil-bar><div class=funil-fill style="width:5%"></div></div><span class=funil-val>1</span></div><div class=funil-row><span class=funil-label>Documentacao Aprovada</span><div class=funil-bar><div class=funil-fill style="width:10%"></div></div><span class=funil-val>2</span></div><div class=funil-row><span class=funil-label>Contrato Assinado</span><div class=funil-bar><div class=funil-fill style="width:5%"></div></div><span class=funil-val>1</span></div></div>
+  </div>
+  <div class="chart-card">
+    <h3>Sentimento das Visitas</h3>
+    <div class="chart-area"><canvas id="c3"></canvas></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="dot"></span> Resumo Qualitativo</div>
+  <div class=theme-row><span class=theme-label>Gostaram do imovel</span><div class=theme-bar><div class=theme-fill style="width:52%"></div></div><span class=theme-val>60 (52%)</span></div><div class=theme-row><span class=theme-label>Buscando outras opcoes</span><div class=theme-bar><div class=theme-fill style="width:14%"></div></div><span class=theme-val>16 (14%)</span></div><div class=theme-row><span class=theme-label>Pretendem enviar proposta</span><div class=theme-bar><div class=theme-fill style="width:9%"></div></div><span class=theme-val>10 (9%)</span></div><div class=theme-row><span class=theme-label>Em analise/decisao</span><div class=theme-bar><div class=theme-fill style="width:10%"></div></div><span class=theme-val>11 (10%)</span></div><div class=theme-row><span class=theme-label>Acharam pequeno</span><div class=theme-bar><div class=theme-fill style="width:9%"></div></div><span class=theme-val>10 (9%)</span></div><div class=theme-row><span class=theme-label>Precisa reforma/estrutura</span><div class=theme-bar><div class=theme-fill style="width:8%"></div></div><span class=theme-val>9 (8%)</span></div><div class=theme-row><span class=theme-label>Questoes de valor</span><div class=theme-bar><div class=theme-fill style="width:5%"></div></div><span class=theme-val>6 (5%)</span></div>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="dot"></span> Ranking de Consultores</div>
+  <table><thead><tr><th>Consultor</th><th>Visitas</th><th>Propostas</th><th>Conversao</th></tr></thead><tbody><tr><td>Bianca Piva Goncalves<span class=star> ★</span></td><td>2</td><td>3</td><td><strong>150%</strong></td></tr><tr><td>Fábio Pazos</td><td>1</td><td>1</td><td><strong>100%</strong></td></tr><tr><td>luciana costa</td><td>1</td><td>1</td><td><strong>100%</strong></td></tr><tr><td>Fábio Paulice<span class=star> ★</span></td><td>3</td><td>2</td><td><strong>67%</strong></td></tr><tr><td>Ulisses da Silva Vieira<span class=star> ★</span></td><td>5</td><td>3</td><td><strong>60%</strong></td></tr><tr><td>talitasouzavinhos@gmail.com<span class=star> ★</span></td><td>5</td><td>3</td><td><strong>60%</strong></td></tr><tr><td>Kaique Albuquerque<span class=star> ★</span></td><td>5</td><td>3</td><td><strong>60%</strong></td></tr><tr><td>carolina farias</td><td>6</td><td>3</td><td><strong>50%</strong></td></tr><tr><td>DJEISON FRAPORTI</td><td>4</td><td>2</td><td><strong>50%</strong></td></tr><tr><td>Getulio Oliveira</td><td>2</td><td>1</td><td><strong>50%</strong></td></tr><tr><td>didepb@googlemail.com</td><td>2</td><td>1</td><td><strong>50%</strong></td></tr><tr><td>Marce Paganeli</td><td>2</td><td>1</td><td><strong>50%</strong></td></tr></tbody></table>
+</div>
+
+<div class="g2">
+  <div class="sec">
+    <div class="sec-title"><span class="dot" style="background:#059669"></span> Destaques da Semana</div>
+    <p style="font-size:11px;color:#71717A;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Propostas Aceitas</p>
+    <table><thead><tr><th>Imovel</th><th class=r>Ticket</th><th>Consultor</th></tr></thead><tbody><tr><td>Rua Casa do Ator, 198, Vila Olímpia</td><td class=r>R$ 6.315</td><td>carolina farias</td></tr><tr><td>Rua Santa Cruz, 1889 - A, Vila Mariana</td><td class=r>R$ 4.318</td><td>Kaique Albuquerque</td></tr><tr><td>Rua Arandu, 85, Brooklin Paulista</td><td class=r>R$ 3.000</td><td>Fábio Pazos</td></tr><tr><td>Rua Eugênio Falk, 558, Saúde</td><td class=r>R$ 2.300</td><td>talitasouzavinhos@gmail.com</td></tr><tr><td>Rua Artur de Azevedo, 1767 - sala 51, Pinheiros</td><td class=r>R$ 2.000</td><td>Fábio Paulice</td></tr><tr><td>Avenida Brigadeiro Luís Antônio, 290 - Sl. 131, Bela Vista</td><td class=r>R$ 1.749</td><td>Kaique Albuquerque</td></tr></tbody></table>
+    <p style='font-size:11px;color:#71717A;margin:16px 0 12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600'>Documentacao</p><table><thead><tr><th>Imovel</th><th class=r>Ticket</th><th>Consultor</th></tr></thead><tbody><tr><td>Rua João Navarro Botelho, 103, Santana</td><td class=r>R$ 5.500</td><td>Bianca Piva Goncalves</td></tr><tr><td>Rua Sampaio Vidal, 1096, Jardim Paulistano</td><td class=r>R$ 26.000</td><td>Getulio Oliveira</td></tr><tr><td>Rua José de Siqueira, 20, Freguesia do Ó</td><td class=r>R$ 4.500</td><td>Bianca Piva Goncalves</td></tr></tbody></table>
+  </div>
+  <div class="sec">
+    <div class="sec-title"><span class="dot" style="background:#FBBF24"></span> Oportunidades na Mesa</div>
+    <p style="font-size:11px;color:#71717A;margin-bottom:12px">Visitas positivas que ainda nao geraram proposta</p>
+    <table><thead><tr><th>Consultor</th><th>Imovel</th><th class=r>Ticket</th></tr></thead><tbody><tr><td>André Ferraz de Campos</td><td>Rua Mourato Coelho, 790  - Pinheiros</td><td class=r><strong>R$ 45.000</strong></td></tr><tr><td>Rogério Ranieri</td><td>Avenida Engenheiro George Corbisier, 1155  - Jabaq</td><td class=r><strong>R$ 29.800</strong></td></tr><tr><td>DANIEL BRANCO</td><td>Rua Carlos Gomes, 652  - Santo Amaro</td><td class=r><strong>R$ 20.000</strong></td></tr><tr><td>Rony Santana</td><td>Rua Almirante Pereira Guimarães, 298  - Pacaembu</td><td class=r><strong>R$ 16.000</strong></td></tr><tr><td>carolina farias</td><td>Rua Salvador Corrêa, 99  - Aclimação</td><td class=r><strong>R$ 15.000</strong></td></tr><tr><td>Silvio Rocha</td><td>Rua Aimberê, 737  - Perdizes</td><td class=r><strong>R$ 15.000</strong></td></tr><tr><td>Victor Abram</td><td>Rua Joel Jorge de Melo, 341  - Vila Mariana</td><td class=r><strong>R$ 15.000</strong></td></tr><tr><td>Milene vasconcelos Soares</td><td>Rua do Lavapés, 252  - Cambuci</td><td class=r><strong>R$ 12.000</strong></td></tr><tr><td>Silvana aparecida mariano</td><td>Rua Américo Salvador Novelli, 341  - Itaquera</td><td class=r><strong>R$ 9.900</strong></td></tr><tr><td>Ulisses da Silva Vieira</td><td>Avenida Professor Alfonso Bovero, 438  - Perdizes</td><td class=r><strong>R$ 9.000</strong></td></tr></tbody></table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="dot"></span> Proximos Passos</div>
+  <ul style="padding-left:20px;font-size:13px;line-height:2.2"><li>10 visitas positivas sem proposta — oportunidades na mesa</li><li>41 no-shows ate hoje — revisar com consultores</li><li>247 visitas previstas para os proximos dias</li></ul>
+</div>
+
+<div class="ftr">SuaQuadra — Report gerado automaticamente em 10/06/2026</div>
+
+</div>
+
+<script>
+const F = {'family': "'Inter',sans-serif", 'size': 12};
+Chart.defaults.font = F;
+Chart.defaults.plugins.legend.display = false;
+const DK = '#27272A', YL = '#FBBF24', GR = '#E5E7EB';
+
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {labels: ["Seg 08/06", "Ter 09/06", "Qua 10/06", "Qui 11/06", "Sex 12/06"], datasets: [{data: [43, 44, 39, 9, 2], backgroundColor: DK, borderRadius: 8, barPercentage: 0.5, maxBarThickness: 48}]},
+  options: {responsive: true, maintainAspectRatio: false, plugins: {tooltip: {backgroundColor: '#000', titleFont: {weight: '700'}, bodyFont: {size: 13}, padding: 12, cornerRadius: 8}}, scales: {y: {beginAtZero: true, grid: {color: '#F3F4F6', drawBorder: false}, ticks: {font: {size: 11}}}, x: {grid: {display: false}, ticks: {font: {size: 11}}}}}
+});
+
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {labels: ["Seg 08/06", "Ter 09/06", "Qua 10/06", "Qui 11/06", "Sex 12/06"], datasets: [
+    {label: 'Previstas', data: [125, 123, 146, 143, 77], backgroundColor: GR, borderRadius: 8, barPercentage: 0.65, maxBarThickness: 40},
+    {label: 'Realizadas', data: [43, 44, 39, 9, 2], backgroundColor: YL, borderRadius: 8, barPercentage: 0.65, maxBarThickness: 40}
+  ]},
+  options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {display: true, position: 'top', labels: {usePointStyle: true, pointStyle: 'rectRounded', padding: 20, font: {size: 12, weight: '500'}}}, tooltip: {backgroundColor: '#000', padding: 12, cornerRadius: 8}}, scales: {y: {beginAtZero: true, grid: {color: '#F3F4F6', drawBorder: false}}, x: {grid: {display: false}}}}
+});
+
+new Chart(document.getElementById('c3'), {
+  type: 'doughnut',
+  data: {labels: ['Positivo (74)', 'Negativo (19)', 'Neutro (44)'], datasets: [{data: [74,19,44], backgroundColor: [YL, DK, GR], borderWidth: 0, spacing: 2}]},
+  options: {responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: {legend: {display: true, position: 'bottom', labels: {usePointStyle: true, pointStyle: 'circle', padding: 16, font: {size: 12}}}, tooltip: {backgroundColor: '#000', padding: 12, cornerRadius: 8}}}
+});
+</script>
+</body></html>
