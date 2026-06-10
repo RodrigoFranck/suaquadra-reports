@@ -76,9 +76,21 @@ tr:hover td{background:#FFFBEB}
   .wrap{padding:16px}
   .sec,.chart-card,.kpi{break-inside:avoid;box-shadow:none}
 }
+/* Funnel card */
+.funnel{background:#fff;border-radius:12px;padding:28px 36px;margin-bottom:20px;border:1px solid #E5E7EB;display:flex;align-items:center;justify-content:center;gap:0}
+.funnel-step{text-align:center;flex:1}
+.funnel-step .f-lb{font-size:10px;color:#71717A;text-transform:uppercase;letter-spacing:0.8px;font-weight:600}
+.funnel-step .f-vl{font-size:34px;font-weight:800;margin:4px 0 2px;color:#27272A}
+.funnel-step .f-sm{font-size:11px;color:#A1A1AA}
+.funnel-step.accent .f-vl{color:#FBBF24}
+.funnel-step.green .f-vl{color:#059669}
+.funnel-arrow{font-size:28px;color:#D4D4D8;padding:0 8px;margin-top:8px}
+
 @media(max-width:768px){
   .kpis{grid-template-columns:repeat(3,1fr)}
   .charts,.g2{grid-template-columns:1fr}
+  .funnel{flex-wrap:wrap;gap:12px}
+  .funnel-arrow{display:none}
 }
 </style>
 </head>
@@ -90,6 +102,32 @@ tr:hover td{background:#FFFBEB}
   <div class="sub">Semana 08/06 a 10/06/2026 — parcial, ate quarta-feira</div>
   <div class="badge">Week-to-Date</div>
   <div class="logo">SuaQuadra</div>
+</div>
+
+<div class="funnel">
+  <div class="funnel-step">
+    <div class="f-lb">Leads</div>
+    <div class="f-vl">178</div>
+    <div class="f-sm">Consultor SQ</div>
+  </div>
+  <div class="funnel-arrow">&#10140;</div>
+  <div class="funnel-step">
+    <div class="f-lb">Visitas Realizadas</div>
+    <div class="f-vl">137</div>
+    <div class="f-sm">76.9% dos leads</div>
+  </div>
+  <div class="funnel-arrow">&#10140;</div>
+  <div class="funnel-step">
+    <div class="f-lb">Propostas</div>
+    <div class="f-vl">40</div>
+    <div class="f-sm">29.2% das visitas</div>
+  </div>
+  <div class="funnel-arrow">&#10140;</div>
+  <div class="funnel-step green">
+    <div class="f-lb">Conversao Lead-Proposta</div>
+    <div class="f-vl">22.5%</div>
+    <div class="f-sm">40 de 178 leads</div>
+  </div>
 </div>
 
 <div class="kpis">
@@ -120,7 +158,7 @@ tr:hover td{background:#FFFBEB}
 <div class="g2">
   <div class="sec">
     <div class="sec-title"><span class="dot"></span> Pipeline Futuro</div>
-    <table><thead><tr><th>Dia</th><th>Total</th><th>Agendadas</th><th>Intents</th></tr></thead><tbody><tr><td>Qui 11/06</td><td>143</td><td>30</td><td>113</td></tr><tr><td>Sex 12/06</td><td>77</td><td>16</td><td>61</td></tr><tr><td>Sab 13/06</td><td>27</td><td>6</td><td>21</td></tr></tbody></table>
+    <table><thead><tr><th>Dia</th><th>Agendadas</th></tr></thead><tbody><tr><td>Qui 11/06</td><td>143</td></tr><tr><td>Sex 12/06</td><td>77</td></tr><tr><td>Sab 13/06</td><td>27</td></tr></tbody></table>
   </div>
   <div class="sec">
     <div class="sec-title"><span class="dot"></span> Top No-Shows</div>
