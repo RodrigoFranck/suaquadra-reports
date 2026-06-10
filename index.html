@@ -135,7 +135,7 @@ tr:hover td{background:#FFFBEB}
   <div class="kpi"><div class="lb">Propostas</div><div class="vl">40</div><div class="sm">R$ 240.218/mes</div></div>
   <div class="kpi green"><div class="lb">Conversao Lead-Prop</div><div class="vl">22.5%</div><div class="sm">40 prop / 178 leads</div></div>
   <div class="kpi accent"><div class="lb">Ticket Medio</div><div class="vl">R$ 7.467</div><div class="sm">Prop: R$ 6.005</div></div>
-  <div class="kpi red"><div class="lb">No-Shows</div><div class="vl">41</div><div class="sm">Pipeline: 641</div></div>
+  <div class="kpi red"><div class="lb">Visitas em Aberto</div><div class="vl">41</div><div class="sm">Pipeline: 641</div></div>
   <div class="kpi"><div class="lb">Follow-up</div><div class="vl">10</div><div class="sm">Oportunidades na mesa</div></div>
 </div>
 
@@ -161,7 +161,7 @@ tr:hover td{background:#FFFBEB}
     <table><thead><tr><th>Dia</th><th>Agendadas</th></tr></thead><tbody><tr><td>Qui 11/06</td><td>143</td></tr><tr><td>Sex 12/06</td><td>77</td></tr><tr><td>Sab 13/06</td><td>27</td></tr></tbody></table>
   </div>
   <div class="sec">
-    <div class="sec-title"><span class="dot"></span> Top No-Shows</div>
+    <div class="sec-title"><span class="dot"></span> Visitas em Aberto</div>
     <table><thead><tr><th>Consultor</th><th>Qtd</th></tr></thead><tbody><tr><td>gabrielrhadar@gmail.com</td><td><strong>11</strong></td></tr><tr><td>Nicholas Takamoto</td><td><strong>5</strong></td></tr><tr><td>talitasouzavinhos@gmail.com</td><td><strong>4</strong></td></tr><tr><td>Frank Patrício Constantino</td><td><strong>3</strong></td></tr><tr><td>Marcel Santos</td><td><strong>2</strong></td></tr><tr><td>Marce Paganeli</td><td><strong>2</strong></td></tr><tr><td>Victor Bedim</td><td><strong>2</strong></td></tr><tr><td>Eliane Honorio</td><td><strong>2</strong></td></tr><tr><td>Matheus Perez</td><td><strong>1</strong></td></tr><tr><td>Diego Pilat</td><td><strong>1</strong></td></tr><tr><td>Marcos Abrego Erbert</td><td><strong>1</strong></td></tr><tr><td>Silvana aparecida mariano</td><td><strong>1</strong></td></tr></tbody></table>
   </div>
 </div>
@@ -173,7 +173,12 @@ tr:hover td{background:#FFFBEB}
   </div>
   <div class="chart-card">
     <h3>Sentimento das Visitas</h3>
-    <div class="chart-area"><canvas id="c3"></canvas></div>
+    <div class="chart-area" style="height:200px"><canvas id="c3"></canvas></div>
+    <div style="margin-top:12px;font-size:11px;color:#71717A;line-height:1.8;border-top:1px solid #F3F4F6;padding-top:12px">
+      <div><span style="display:inline-block;width:10px;height:10px;background:#FBBF24;border-radius:3px;margin-right:6px;vertical-align:middle"></span><strong>Positivo</strong> — Cliente gostou, demonstrou interesse ou pretende enviar proposta</div>
+      <div><span style="display:inline-block;width:10px;height:10px;background:#27272A;border-radius:3px;margin-right:6px;vertical-align:middle"></span><strong>Negativo</strong> — Imovel nao atendeu, cliente nao gostou ou desistiu</div>
+      <div><span style="display:inline-block;width:10px;height:10px;background:#E5E7EB;border-radius:3px;margin-right:6px;vertical-align:middle"></span><strong>Neutro</strong> — Sem descricao registrada ou feedback inconclusivo</div>
+    </div>
   </div>
 </div>
 
@@ -190,9 +195,8 @@ tr:hover td{background:#FFFBEB}
 <div class="g2">
   <div class="sec">
     <div class="sec-title"><span class="dot" style="background:#059669"></span> Destaques da Semana</div>
-    <p style="font-size:11px;color:#71717A;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Propostas Aceitas</p>
-    <table><thead><tr><th>Imovel</th><th class=r>Ticket</th><th>Consultor</th></tr></thead><tbody><tr><td>Rua Casa do Ator, 198, Vila Olímpia</td><td class=r>R$ 6.315</td><td>carolina farias</td></tr><tr><td>Rua Santa Cruz, 1889 - A, Vila Mariana</td><td class=r>R$ 4.318</td><td>Kaique Albuquerque</td></tr><tr><td>Rua Arandu, 85, Brooklin Paulista</td><td class=r>R$ 3.000</td><td>Fábio Pazos</td></tr><tr><td>Rua Eugênio Falk, 558, Saúde</td><td class=r>R$ 2.300</td><td>talitasouzavinhos@gmail.com</td></tr><tr><td>Rua Artur de Azevedo, 1767 - sala 51, Pinheiros</td><td class=r>R$ 2.000</td><td>Fábio Paulice</td></tr><tr><td>Avenida Brigadeiro Luís Antônio, 290 - Sl. 131, Bela Vista</td><td class=r>R$ 1.749</td><td>Kaique Albuquerque</td></tr></tbody></table>
-    <p style='font-size:11px;color:#71717A;margin:16px 0 12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600'>Documentacao</p><table><thead><tr><th>Imovel</th><th class=r>Ticket</th><th>Consultor</th></tr></thead><tbody><tr><td>Rua João Navarro Botelho, 103, Santana</td><td class=r>R$ 5.500</td><td>Bianca Piva Goncalves</td></tr><tr><td>Rua Sampaio Vidal, 1096, Jardim Paulistano</td><td class=r>R$ 26.000</td><td>Getulio Oliveira</td></tr><tr><td>Rua José de Siqueira, 20, Freguesia do Ó</td><td class=r>R$ 4.500</td><td>Bianca Piva Goncalves</td></tr></tbody></table>
+    <p style="font-size:11px;color:#71717A;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Propostas Enviadas — Maiores Tickets</p>
+    <table><thead><tr><th>Imovel</th><th class=r>Ticket</th><th>Consultor</th></tr></thead><tbody><tr><td>Rua Tanabi, 200, Agua Branca</td><td class=r><strong>R$ 10.500</strong></td><td>DJEISON FRAPORTI</td></tr><tr><td>Rua Dona Veridiana, 64, Higienopolis</td><td class=r><strong>R$ 10.000</strong></td><td>Silvio Rocha</td></tr><tr><td>Rua Apiacas, 607, Perdizes</td><td class=r><strong>R$ 7.500</strong></td><td>Ulisses da Silva Vieira</td></tr><tr><td>Rua Humaita, 627, Bela Vista</td><td class=r><strong>R$ 7.000</strong></td><td>carolina farias</td></tr><tr><td>Rua Cipiao, 238 - Loja 02, Vila Romana</td><td class=r><strong>R$ 6.500</strong></td><td>DJEISON FRAPORTI</td></tr><tr><td>Rua Martim Francisco, 822, Vila Buarque</td><td class=r><strong>R$ 3.800</strong></td><td>carolina farias</td></tr><tr><td>Rua Tobias Barreto, 868 - Sala 02, Mooca</td><td class=r><strong>R$ 2.890</strong></td><td>Maria Cristina Patriani</td></tr><tr><td>Rua Cerro Cora, 613, Vila Romana</td><td class=r><strong>R$ 2.093</strong></td><td>Ulisses da Silva Vieira</td></tr><tr><td>Rua Cerro Cora, 613 - 1o andar, Vila Romana</td><td class=r><strong>R$ 2.030</strong></td><td>Ulisses da Silva Vieira</td></tr></tbody></table>
   </div>
   <div class="sec">
     <div class="sec-title"><span class="dot" style="background:#FBBF24"></span> Oportunidades na Mesa</div>
@@ -203,7 +207,7 @@ tr:hover td{background:#FFFBEB}
 
 <div class="sec">
   <div class="sec-title"><span class="dot"></span> Proximos Passos</div>
-  <ul style="padding-left:20px;font-size:13px;line-height:2.2"><li>10 visitas positivas sem proposta — oportunidades na mesa</li><li>41 no-shows ate hoje — revisar com consultores</li><li>247 visitas previstas para os proximos dias</li></ul>
+  <ul style="padding-left:20px;font-size:13px;line-height:2.2"><li>10 visitas positivas sem proposta — oportunidades na mesa</li><li>41 visitas em aberto ate hoje — revisar com consultores</li><li>247 visitas previstas para os proximos dias</li></ul>
 </div>
 
 <div class="ftr">SuaQuadra — Report gerado automaticamente em 10/06/2026</div>
